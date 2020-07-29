@@ -1,0 +1,37 @@
+on:
+  push
+
+jobs:
+  firstjob:
+    name: Do something if VERSION has changed
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Make cache folder
+        run: mkdir ~/cache
+      - name: Cache VERSION
+        id: cache-docker
+        uses: actions/cache@v2
+        with:
+          path: ~/cache/VERSION
+          key: ${{ runner.os }}-VERSION
+      - name: touch ~/cache/VERSION
+        run: touch ~/cache/VERSION
+      - name: compare VERSION with cache
+        id: diff
+        run: |
+            if diff VERSION ~/cache/VERSION > /dev/null; then
+                echo ::set-output name=changed::no
+            else
+                echo ::set-output name=changed::yes
+            fi
+
+      - name: Build and push Docker image
+        run: echo "RRRRRRRRRRRRRRRrrRRRrrRRRrRRRrrRRRrrRRRrrRRRrrRRRrrrr"
+        if: steps.diff.outputs.changed == 'yes'
+      - name: Build and push Docker image
+        run: cat VERSION
+        if: steps.diff.outputs.changed == 'yes'
+      - name: Copy VERSION to ~/cache/VERSION
+        run: cp VERSION ~/cache/VERSION
