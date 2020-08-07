@@ -54,3 +54,5 @@ workflows:
   main:
     jobs:
       - run-fmm
+      - run-opencl
+      - run-numba
