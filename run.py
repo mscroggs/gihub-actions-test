@@ -20,6 +20,6 @@ for h in [2 ** -i for i in range(1, 7)]:
     with open(f"output/{a_type}_assembly_{h}") as f:
         print("# Assembly")
         print(f.read())
-    with open(f"output/{a_type}_matvec_{h}", "w") as f:
+    with open(f"output/{a_type}_matvec_{h}") as f:
         print("# Matvec")
         print(f.read())
