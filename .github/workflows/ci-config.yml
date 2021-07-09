@@ -43,7 +43,7 @@ jobs:
       - name: Get tag name
         id: tag_name
         run: |
-          if [ ${GITHUB_REF#refs/tags/} ]   
+          if [[ ${GITHUB_REF#refs/tags/} == v* ]]
           then
             echo ::set-output name=SOURCE_TAG::${GITHUB_REF#refs/tags/}
           else
@@ -51,3 +51,5 @@ jobs:
           fi
       - name: test
         run: echo ${{ steps.tag_name.outputs.SOURCE_TAG }}
+      - name: A
+        run: echo ${GITHUB_REF#refs/tags/}
