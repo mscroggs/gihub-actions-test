@@ -38,8 +38,8 @@ jobs:
 
   iftest:
     - name: Get tag name
-        id: tag_name
-        run: |
+      id: tag_name
+      run: |
           if [ ${GITHUB_REF#refs/tags/} ]   
           then
             echo ::set-output name=SOURCE_TAG::${GITHUB_REF#refs/tags/}
